@@ -42,7 +42,7 @@ using namespace std;
 
 void combinationSumCore(vector<vector<int>>& res, vector<int>& temp, vector<int>& candidates, int currentIndex, int target) {
     
-    if(target < 0 || currentIndex >= candidates.size()) {
+    if(target < 0) {
         return;
     }
     else if (target == 0) {
