@@ -10,6 +10,9 @@
 #include "vector"
 using namespace std;
 
+/*
+ https://leetcode-cn.com/problems/container-with-most-water/
+ */
 int maxWater(vector<int>& height) {
     int left = 0;
     int right = (int)height.size()-1;
