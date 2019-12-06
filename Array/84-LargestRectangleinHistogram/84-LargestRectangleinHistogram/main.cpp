@@ -102,19 +102,20 @@ int largestRectangleArea3(vector<int>& heights) {
     if(length == 0) {
         return 0;
     }
-    
+
+    heights.push_back(0); // 注意，这里向数组添加了一个元素
     stack<int> s;
-    
-    for(int i = 0; i < length; i++) {
-        while (!s.empty() && heights[i] <= s.top()) {
+
+    for(int i = 0; i < length+1; i++) {
+        while (!s.empty() && heights[i] <= heights[s.top()]) {
             int topValue = s.top();
             s.pop();
             result = max(result, heights[topValue] * (s.empty() ? i : i - s.top() - 1));
         }
         s.push(i);
     }
-    
-    
+
+
     return result;
     
 }
