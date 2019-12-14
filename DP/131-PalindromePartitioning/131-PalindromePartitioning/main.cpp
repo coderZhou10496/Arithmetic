@@ -48,6 +48,7 @@ bool isPalindromic(string s) {
     return true;
 }
 
+
 void partitionHelper(vector<vector<string>> &res, vector<string> &temp, string s, int index) {
     if(index >= s.size()) {
         res.push_back(temp);
@@ -62,6 +63,7 @@ void partitionHelper(vector<vector<string>> &res, vector<string> &temp, string s
         }
     }
 }
+
 
 vector<vector<string>> partition(string s) {
     vector<vector<string>> res;
