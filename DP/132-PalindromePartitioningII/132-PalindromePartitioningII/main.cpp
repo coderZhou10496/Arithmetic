@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include "vector"
 using namespace std;
 
 /*
@@ -25,16 +26,85 @@ using namespace std;
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-//int minCut(string s) {
-//
-//    int result = 3^5;
-//
-//
-//}
+// 方法1：很优秀的解法
+int minCut(string s) {
 
+    int length = (int)s.size();
+    if(length == 0 || length == 1) {
+        return 0;
+    }
+    
+    vector<int> v; // 长度为 i 的字符串，最多切 i - 1 次，都变成单个字符，就是回文串了
+    for(int i = 0; i < length+1; i++) {
+        v.push_back(i-1);
+    }
+    
+    for(int i = 0; i < length; i++) {
+        
+        v[i+1] = min(v[i+1],v[i]+1);
+        
+        int start = i;
+        int end = i+1;
+        while(start >= 0 && end < length && s[start] == s[end]) {
+            
+            v[end+1] = min(v[end+1], v[start]+1);
+            start--;
+            end++;
+            
+        }
+        
+        start = i-1;
+        end = i+1;
+        while(start >= 0 && end < length && s[start] == s[end]) {
+            v[end+1] = min(v[end+1], v[start]+1);
+            start--;
+            end++;
+        }
+        if(v[length] == 0){
+            return 0;
+        }
+    }
+    return v[length];
 
+}
+
+// 方法2：虽然能AC,但占用了大量内存及时间，不推荐使用
+bool isPalindromic(string s, int left, int right) {
+    if(left < 0 || right >= s.size()) {
+        return false;
+    }
+    while (left < right ) {
+        if(s[left] != s[right]) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true;
+}
+int minCut2(string s) {
+    int length = (int)s.size();
+    if(length == 0 || length == 1) {
+        return 0;
+    }
+    
+    vector<int> v; // 长度为 i 的字符串，最多切 i - 1 次，都变成单个字符，就是回文串了
+    for(int i = 0; i < length+1; i++) {
+        v.push_back(i-1);
+    }
+    for(int i = 1; i <= length; i++) {
+        for(int j = 0; j < i; j++) {
+            if(isPalindromic(s, j, i-1)) {
+                v[i] = min(v[i],v[j]+1);
+            }
+        }
+    }
+    return v[length];
+}
 int main(int argc, const char * argv[]) {
 
+    string s = "cbbbbc";
+    cout << minCut2(s) << endl;
 
     return 0;
 }
