@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include "vector"
-#include "stack"
+#include "queue"
 using namespace std;
 
 /*
@@ -55,13 +55,43 @@ int nthUglyNumber(int n) {
     return v[n-1];
 }
 
-//int nthUglyNumber_solution2(int n) {
-//
-//    vector<int> v;
-//
-//
-//
-//}
+int nthUglyNumber_solution2(int n) {
+
+    if(n == 1) {
+        return 1;
+    }
+    queue<int> q2;
+    queue<int> q3;
+    queue<int> q5;
+    
+    q2.push(2);
+    q3.push(3);
+    q5.push(5);
+    
+    int index = 1;
+    int result = 0;
+    while (index < n) {
+        result = min(min(q2.front(), q3.front()),q5.front());
+        if(result == q2.front()) {
+            q2.pop();
+            q2.push(result * 2);
+            q3.push(result * 3);
+            q5.push(result * 5);
+        }
+        if(result == q3.front()) {
+            q3.pop();
+            q3.push(result * 3);
+            q5.push(result * 5);
+        }
+        if(result == q5.front()) {
+            q5.pop();
+            q5.push(result * 5);
+        }
+        index++;
+    }
+    return result;
+
+}
 
 int main(int argc, const char * argv[]) {
     
