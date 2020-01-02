@@ -108,6 +108,50 @@ bool canPartition2(vector<int>& nums) {
     sort(nums.begin(), nums.end());
     return canPartition2Helper(nums, targetNum, length-1);
 }
+
+// 解法3：转换成背包问题
+/*
+ 题目转换成从这个数组里面选取一些元素使这些元素和为sum/2。如果我们将所有元素的值看做是物品的重量，每件物品价值都为1，所以这就是一个恰好装满的01背包问题。
+ */
+bool canPartition3(vector<int>& nums) {
+    int length = (int)nums.size();
+    if(length == 0 || length == 1) {
+        return false;
+    }
+    
+    int sum = 0;
+    for(int num : nums) {
+        sum += num;
+    }
+    if(sum%2 == 1) {
+        return false;
+    }
+    int capacity = sum/2;
+    vector<int>dp(capacity + 1, INT_MIN);
+    dp[0] = 1;
+    for(int num : nums) {
+        for(int j = capacity; j >= num; j--) {
+            dp[j] = max(dp[j], 1 + dp[j-num]);
+        }
+    }
+    return dp[capacity] > 0;
+    
+
+    /*
+     
+     由于此题最后求的是能不能进行划分，所以dp的每个元素定义成bool型就可以了，然后将dp[0]初始为true其他初始化为false，而转移方程就应该是用或操作而不是max操作
+     
+     int capacity = sum / 2;
+     vector<bool>dp(capacity + 1, false);
+     dp[0] = true;
+     for(int i = 1; i <= n; i++)
+        for(int j = capacity; j >= nums[i-1]; j--)
+            dp[j] = dp[j] || dp[j - nums[i-1]];
+     
+     return dp[capacity];
+     
+     */
+}
 int main(int argc, const char * argv[]) {
     
     vector<int> nums = {1, 1, 1, 1};
