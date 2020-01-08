@@ -121,7 +121,7 @@ int main(int argc, const char * argv[]) {
         {1,4},
         {4,5}
     };
-    vector<vector<int>> result = merge(nums);
+    vector<vector<int>> result = merge2(nums);
     
     for(int i = 0; i < result.size(); i++) {
         vector<int> v = result[i];

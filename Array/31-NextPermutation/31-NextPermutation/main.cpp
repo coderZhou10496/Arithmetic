@@ -44,11 +44,9 @@ void nextPermutation(vector<int> &nums) {
         int exchangIndex = 0;
         int exchangValue = INT_MAX;
         for(int i = index+1; i < length; i++) {
-            if(nums[i] < exchangValue) {
-                if(nums[i] > nums[index]) {
+            if(nums[i] < exchangValue && nums[i] > nums[index]) {
                     exchangIndex = i;
                     exchangValue = nums[i];
-                }
             }
         }
         swap(nums[index],nums[exchangIndex]);
