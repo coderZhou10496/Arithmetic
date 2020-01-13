@@ -10,6 +10,10 @@
 #include "vector"
 using namespace std;
 
+/*
+ 大牛题解：
+ https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/
+ */
 #pragma mark - 最多只允许完成一笔交易（即买入和卖出一支股票）
 
 int maxProfitI_Solution1(vector<int>& prices) {
@@ -29,6 +33,22 @@ int maxProfitI_Solution2(vector<int>& prices) {
     if(prices.size() < 2) {
         return 0;
     }
+    /*
+     dp[i][0] 表示第i天没持有股票的最大利润
+     dp[i][1] 表示第i天持有股票的最大利润
+     很明显，这题就是求dp[length-1][0]的值
+     
+     dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+     我今天没有持有股票，有两种可能：
+     1.我昨天就没有持有
+     2.我昨天持有，今天卖掉了，变成了没有持有
+     
+     dp[i][1] = max(dp[i-1][1], -prices[i])
+     我今天持有股票，有两种可能
+     1.我昨天就持有
+     2.我昨天没有持有，今天买入了
+     
+     */
     vector<vector<int>> dp(prices.size(), vector<int>(2));
     dp[0][0] = 0;
     dp[0][1] = -prices[0];
