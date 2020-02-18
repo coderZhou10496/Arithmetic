@@ -1,17 +1,16 @@
 
 322 零钱兑换:给定一个价值amount和一些面值，假设每个面值的硬币数都是无限的，问我们最少能用几个硬币组成给定的价值
 int coinChange(vector<int>& coins, int amount) {
-    vector<int>dp(amount + 1, INT_MAX);
+    vector<int> dp(amount+1, amount+1);
     dp[0] = 0;
-
-    for(int i = 1; i <= coins.size(); i++)
-        for(int j = coins[i-1]; j <= amount; j++){
-            // 下行代码会在 1+INT_MAX 时溢出
-            // dp[j] = min(dp[j], 1 + dp[j - coins[i-1]]); 
-            if(dp[j] - 1 > dp[j - coins[i-1]])
-                dp[j] = 1 + dp[j - coins[i-1]];   
+    for(int i = 1; i <= amount; i++) {
+        for(int coin : coins) {
+            if(coin <= i) {
+                dp[i] = min(dp[i],dp[i-coin]+1);
+            }
         }
-    return dp[amount] == INT_MAX ? -1 : dp[amount];   
+    }
+    return (dp[amount] == amount+1) ? -1 : dp[amount];
 }
 
 

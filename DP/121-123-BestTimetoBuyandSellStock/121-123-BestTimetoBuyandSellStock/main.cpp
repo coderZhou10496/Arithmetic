@@ -176,15 +176,51 @@ int maxProfitIII_Solution2(vector<int>& prices) {
     }
     
     return res;
-    
+}
 
+#pragma mark - 含冷冻期:卖出股票后，你无法在第二天买入股票;可多次交易
+
+int maxProfitIV_Solution1(vector<int>& prices) {
+    if(prices.size() < 2) {
+        return 0;
+    }
+    
+    vector<vector<int>> dp(prices.size(), vector<int>(3));
+    dp[0][0] = 0; // 不持股
+    dp[0][1] = -prices[0];// 持股
+    dp[0][2] = 0; // 冷冻期
+    
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(dp[i-1][0],dp[i-1][2]);
+        dp[i][1] = max(dp[i-1][1],dp[i-1][0]-prices[i]);
+        dp[i][2] = dp[i-1][1]+prices[i];
+        
+    }
+    return max(dp[prices.size()-1][0], dp[prices.size()-1][2]);
+    
+//# dp[i][0] 第i天，不持有股票时的最大利润
+//# dp[i][1] 第i天，持有股票时的最大利润
+//
+//    dp[0][0] = 0
+//    dp[0][1] = 0 - prices[0]
+//
+//    dp[1][0] = max(0, prices[1] - prices[0])
+//    dp[1][1] = max(dp[0][1], 0-prices[1])
+//
+//    for i in range(2, n):
+//        dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i])
+//        dp[i][1] = max(dp[i-1][1], dp[i-2][0]-prices[i])
+//
+//# print(dp)
+//
+//        return dp[-1][0]
 }
 
 int main(int argc, const char * argv[]) {
-    vector<int> prices = {1,2,3,4,5};
-    int res = maxProfitIII_Solution1(prices);
-    int res2 = maxProfitIII_Solution2(prices);
-    cout << res << res2 << endl;
+    vector<int> prices = {1,2,3,0,2};
+//    vector<int> prices = {1,2,3,4,5};
+    int res = maxProfitIV_Solution1(prices);
+    cout << res << endl;
     return 0;
 }
 
