@@ -44,7 +44,6 @@ int func1() {
 //    return dp[w.size()-1][total_weight];
     
     
-//    for(int j = total_weight; j >= w[i]; j--) {
     
 //    // 可优化为一维DP
     /*
