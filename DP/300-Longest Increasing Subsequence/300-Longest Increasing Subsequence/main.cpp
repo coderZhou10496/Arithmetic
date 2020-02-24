@@ -55,6 +55,17 @@ int lengthOfLIS(vector<int>& nums) {
     return res;
 }
 // 解法一：DP + 二分
+
+/*
+ 
+ 新建数组 array，用于保存最长上升子序列。
+ 对原序列进行遍历，将每位元素二分插入 array 中:
+    如果 array 中元素都比它小，将它插到最后
+    否则，用它覆盖掉比它大的元素中最小的那个。
+ 总之，思想就是让 array 中存储比较小的元素。这样，array 未必是真实的最长上升子序列，但长度是对的
+ */
+
+
 int lengthOfLIS_solution2(vector<int>& nums) {
     if(nums.empty()) {
         return 0;
