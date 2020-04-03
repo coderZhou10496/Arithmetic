@@ -33,7 +33,7 @@ using namespace std;
 
 // 解法一：DP
 /*
- dp[i]表示遍历到第i个数时，数字的最长子序列长度
+ dp[i]表示nums[0]到nums[i]，含nums[i]的最长上升子序列
  时间复杂度O(N^2)
  空间负责度O(N)
  */

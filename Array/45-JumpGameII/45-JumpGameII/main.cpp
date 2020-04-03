@@ -55,6 +55,24 @@ int jump(vector<int>& nums) {
     return -1;
 }
 
+// 对方法1的优化
+int jump_2(vector<int>& nums) {
+    int ans = 0;
+    int end = 0;
+    int maxPos = 0;
+    for (int i = 0; i < nums.size() - 1; i++)
+    {
+        maxPos = max(nums[i] + i, maxPos);
+        if (i == end)
+        {
+            end = maxPos;
+            ans++;
+        }
+    }
+    return ans;
+    
+}
+    
 int main(int argc, const char * argv[]) {
     vector<int> nums = {2,3,1,1,4};
     int res = jump(nums);
