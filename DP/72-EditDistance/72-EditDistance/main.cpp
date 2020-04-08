@@ -43,7 +43,7 @@ using namespace std;
  */
 
 
-
+// word1 转换成 word2
 int minDistance(string word1, string word2) {
     
     int length1 = (int)word1.length();

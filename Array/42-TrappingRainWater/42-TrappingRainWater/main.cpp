@@ -19,21 +19,21 @@ using namespace std;
  解法三：单调递减栈
  */
 int trap3(vector<int>& height) {
-    //高度h单调递减的栈，存储<h, idx>
-    //相当于保存一个阶梯（每层平面是蓄满水的），每层阶梯高h，且右端点为idx
-    stack<pair<int,int>> hs;
+    //高度h单调递减的栈，存储
+    stack<int> s;
     int ans = 0;
     for(int i = 0; i < height.size(); i++){
-        while(!hs.empty() && height[i] >= hs.top().first){
-            //出现更高的柱子，相等时要更新右端点，写在循环里逻辑是相同的，节省代码
-            int h = hs.top().first;//左边第一层平面的高度，以这个平面为底
-            hs.pop();
-            if(!hs.empty())
-                //以左边第二层平面右端点idx为左界，与新出现的柱子之间围成一个长方形可蓄水区域
-                //其长度为i-idx-1，高度取决于左右界的最低高度
-                ans += (min(hs.top().first, height[i]) - h) * (i - hs.top().second - 1);
+        while(!s.empty() && height[i] >= height[s.top()]){
+            int top = s.top();
+            s.pop();
+            if(s.empty()) {
+                break;
+            }
+            int sWidth = i - s.top() - 1;
+            int sHeight = min(height[i], height[s.top()]) - height[top];
+            ans += sWidth*sHeight;
         }
-        hs.push(make_pair(height[i], i));
+        s.push(i);
     }
     return ans;
 }
