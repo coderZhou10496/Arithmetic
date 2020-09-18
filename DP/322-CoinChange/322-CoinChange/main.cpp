@@ -53,7 +53,7 @@ int coinChange(vector<int>& coins, int amount) {
     return (dp[amount] == amount+1) ? -1 : dp[amount];
 }
 
-// 第二种解法：DPS+剪枝,速度比解法一快(超过了100%的cpp方法)
+// 第二种解法：DFS+剪枝,速度比解法一快(超过了100%的cpp方法)
 int res = INT_MAX;
 
 void coinNumberHelper(vector<int>& coins, int currentRes, int amount, int index) {

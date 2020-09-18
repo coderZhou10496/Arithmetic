@@ -13,18 +13,14 @@ using namespace std;
 
 vector<int> twoSum(vector<int>& nums, int target) {
     
-    map<int, int> m;
+    map<int, int> m; // key为值，value为索引
     
     vector<int> result;
     
-    map<int, int>::iterator iter;
-    
     for(int i = 0; i < nums.size(); i++) {
-        
-        iter = m.find(target-nums[i]);
-        
-        if(iter != m.end()) {
-            result.push_back(iter->second);
+
+        if(m.count(target-nums[i])) {
+            result.push_back(m[target-nums[i]]);
             result.push_back(i);
             return result;
         }
@@ -39,8 +35,8 @@ vector<int> twoSum(vector<int>& nums, int target) {
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
-    vector<int> nums = {2,7,11,5};
-    vector<int> result = twoSum(nums, 18);
+    vector<int> nums = {2,4,5,4,2,1};
+    vector<int> result = twoSum(nums, 6);
     for(vector<int>::iterator iter = result.begin(); iter != result.end(); iter++) {
         cout << *iter << endl;
     }

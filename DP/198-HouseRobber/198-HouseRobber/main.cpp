@@ -74,7 +74,7 @@ int rob2(vector<int>& nums) {
         return nums[0];
     }
     
-    // result[i]，表示第i个必偷的情况下，能偷取的最大价值
+    // result[i]，表示到第i个房间时，能偷取的最大价值
     vector<int> result(length);
     result[0] = nums[0];
     result[1] = max(nums[0], nums[1]);

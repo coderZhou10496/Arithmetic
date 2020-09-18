@@ -46,8 +46,8 @@ bool wordBreak(string s, vector<string>& wordDict) {
     }
     
     
-//    便利wordDict中的word，与s的字串（从i开始，往前数word.size()个）进行比较，如果比较结果一致，则查看dp。
-//    i处dp[i]设置为1的条件事：从i往前数word.size()个，再往前数1个，如果该处dp也为1,则设置dp[i]=1
+//    遍历wordDict中的word，与s的字串（从i开始，往前数word.size()个）进行比较，如果比较结果一致，则查看dp。
+//    i处dp[i]设置为1的条件是：从i往前数word.size()个，再往前数1个，如果该处dp也为1,则设置dp[i]=1
     
     
     vector<int> dp(s.size()+1);

@@ -102,9 +102,11 @@ int maxProduct_solution2(vector<int>& nums) {
     if(length == 1) {
         return nums[0];
     }
-    
-    int min_current = 0;
-    int max_current = 0;
+    /*
+     负数乘以负数，会变成正数，所以解这题的时候我们需要维护两个变量，当前的最大值，以及最小值，最小值可能为负数，但没准下一步乘以一个负数，当前的最大值就变成最小值，而最小值则变成最大值了。
+     */
+    int min_current = nums[0];
+    int max_current = nums[0];
     int res = nums[0];
     for(int i = 1; i < length; i++) {
         if(nums[i] == 0) {
